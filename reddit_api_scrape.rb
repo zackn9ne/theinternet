@@ -90,10 +90,12 @@ end
 #['plain']#story = { title: 'something', category: 'food' }
 #story
 #end
-
+class Menu
+def greeting
 p "welcome what blog would u like to ready? /n"
 p "press 1 for mashable, 2 for digg headers or n for nokogiri scraper nx for nokogiri exparamantal"
-select_blog = gets.strip
+@select_blog = gets.strip
+end
 
 if select_blog == "1"
   p "loading mashable..." 
