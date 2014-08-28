@@ -1,27 +1,12 @@
-# We're going to add a remote data source to pull in stories from Mashable and Digg.
-# http://mashable.com/stories.json
-# http://digg.com/api/news/popular.json
-# These stories will also be upvoted based on our rules. No more user input!
-
-# Pull the json, parse it and then make a new story hash out of each story(Title, Category, Upvotes)
-# Add each story to an array and display your "Front page"
-# We're going to add a remote data source to pull in stories from Mashable and Digg.
-# http://mashable.com/stories.json
-# http://digg.com/api/news/popular.json
-# These stories will also be upvoted based on our rules. No more user input!
-
-# Pull the json, parse it and then make a new story hash out of each story(Title, Category, Upvotes)
-# Add each story to an array and display your "Front page"
 require 'rest-client'
 require 'json'
 require 'nokogiri'
 require 'open-uri'
 
+require_relative 'lib/welcome'
 # response = RestClient.get('http://www.reddit.com/.json')
 # json_response = JSON.load(response)
 # data = json_response['data']
-
-
 
 def get_input
   gets.strip #chomp was also used..
@@ -43,9 +28,11 @@ def calculate_upvotes story
 
 end
 
+session1 = Welcome.new
+session1.greeting
+
 
 def get_from(url)
-
   response = JSON.load( RestClient.get url ) 
   puts response.class
 
@@ -90,49 +77,3 @@ end
 #['plain']#story = { title: 'something', category: 'food' }
 #story
 #end
-class Menu
-def greeting
-p "welcome what blog would u like to ready? /n"
-p "press 1 for mashable, 2 for digg headers or n for nokogiri scraper nx for nokogiri exparamantal"
-@select_blog = gets.strip
-end
-
-if select_blog == "1"
-  p "loading mashable..." 
-  get_from( "mashable.com/stories.json" )
-
-elsif select_blog == "2"
-  p "loading digg headlines"
-  get_from2( select_blog )
-
-elsif select_blog == "nx"
-  p "nx"
-  array = []
-  array.push "asdf"
-  p array
-
-  def get_links(url)
-  doc = Nokogiri::HTML(open("http://autoweek.com").read).css("a")
-
-      doc.each do | link |
-      each_link = link['href']
-      p each_link
-      #test!
-        each_link = "http://autoweek.com/article/indycar/will-power-and-chevy-capture-indycar-pole-sonoma"
-      #test
-      parsed_link = Nokogiri::HTML(open(each_link).read).css("article")
-      parsed_link do | content |
-      p content
-      end
-      end
-
-  end
-  get_links("http://autoweek.com")
-
-elsif select_blog == "n"
-    p "noko scraping mode"
-    doc = Nokogiri::HTML(open('http://autoweek.com'))
-    doc.css('.excerpt').each do | excerpt |
-      puts excerpt.content.strip
-    end
-end
