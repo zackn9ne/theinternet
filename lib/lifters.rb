@@ -58,40 +58,49 @@ class Lifters
     end
 
 def lift_noko 
-  doc = Nokogiri::HTML(open("http://autoweek.com").read).css("a")
+  grabbed_link = Nokogiri::HTML(open("http://autoweek.com").read).css("a")
+    puts grabbed_link
 
-  doc.each do | link |
+  grabbed_link.each do | link |
     each_link = link['href']
-    p each_link
-    #test!
-    each_link = "http://autoweek.com/article/indycar/will-power-and-chevy-capture-indycar-pole-sonoma"
-    #test
-    parsed_link = Nokogiri::HTML(open(each_link).read).css("article")
-    parsed_link do | content |
-      p content
+        p each_link
     end
-  end
+
+    #test!
+    @each_link = "http://autoweek.com/article/indycar/will-power-and-chevy-capture-indycar-pole-sonoma"
+    @each_link = "http://autoweek.com/article/car-news/chrysler-nissan-toyota-sell-big-august"
+    #test
 end
+
+def lift_noko_followed
+    header = Nokogiri::HTML(open(@each_link).read).css(".story")
+    p header.to_s.gsub( %r{</?[^>]+?>}, '' )
+    image = Nokogiri::HTML(open(@each_link)).css(".article-wrap img")
+    puts "here is the image"
+    image = image.to_s
+    puts image.class
+    puts image['src']
+
+
+    #xpath is the way to go... erase the shit above.... ^^^^^!!!!
+
+    doc = Nokogiri::HTML(open(@each_link))
+    doc.xpath('//img').each do |img|
+      puts "Header: #{img.xpath('preceding::h2[1]').text}"
+        puts "  Image: #{img['src']}"
+      end
+    doc.xpath('//article').each do |article|
+        puts article.text
+    end
+end
+    
+
 
 #nbu
-def choose_lifter
-  if @lift_from == "1"
-    get_from('http://www.reddit.com')
+ #   p "noko scraping mode"
+ #   doc = Nokogiri::HTML(open('http://autoweek.com'))
+ #   doc.css('.excerpt').each do | excerpt |
+ #     puts excerpt.content.strip
 
-  elsif @lift_from == "2"
-    run_digg
-
-  elsif @lift_from == "nx"
-    p "nx exparamental mode entering..."
-    #nokogiri_mode("http://autoweek.com")
-
-  elsif @lift_from == "n"
-    p "noko scraping mode"
-    doc = Nokogiri::HTML(open('http://autoweek.com'))
-    doc.css('.excerpt').each do | excerpt |
-      puts excerpt.content.strip
-    end
-  end
-end
-#end class
+#end the class
 end

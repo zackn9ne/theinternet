@@ -30,6 +30,7 @@ class Welcome
     runtime = Lifters.new
     runtime.greet_lifters
     runtime.lift_noko
+    runtime.lift_noko_followed
   end
 
   def nokogiri_mode(url)
