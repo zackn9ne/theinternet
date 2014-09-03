@@ -1,5 +1,6 @@
 class Welcome
   attr_accessor :select_blog
+
   def initialize
     @select_blog = ""
   end
@@ -12,7 +13,7 @@ class Welcome
 
   def run_mashable 
     p "loading mashable..." 
-    get_from( "mashable.com/stories.json" )
+    #get_from( "mashable.com/stories.json" )
   end
 
   def run_digg
@@ -36,8 +37,9 @@ class Welcome
       end
   end
 
-
+def chooseBlog
   if @select_blog == "1"
+  puts "hi"
   run_mashable
 
   elsif @select_blog == "2"
@@ -45,8 +47,7 @@ class Welcome
 
   elsif @select_blog == "nx"
     p "nx exparamental mode entering..."
-    nokogiri_mode("http://autoweek.com")
-
+    #nokogiri_mode("http://autoweek.com")
 
   elsif @select_blog == "n"
     p "noko scraping mode"
@@ -55,4 +56,5 @@ class Welcome
       puts excerpt.content.strip
     end
   end
+end
 end
