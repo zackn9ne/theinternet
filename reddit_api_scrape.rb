@@ -6,6 +6,8 @@ require 'nokogiri'
 require 'open-uri'
 
 require_relative 'lib/welcome'
+require_relative 'lib/lifters'
+
 # response = RestClient.get('http://www.reddit.com/.json')
 # json_response = JSON.load(response)
 # data = json_response['data']
@@ -32,4 +34,3 @@ end
 session1 = Welcome.new #from /lib/Welcome
 session1.greeting
 session1.chooseBlog
-

@@ -13,12 +13,23 @@ class Welcome
 
   def run_mashable 
     p "loading mashable..." 
-    #get_from( "mashable.com/stories.json" )
+    runtime = Lifters.new
+    runtime.greet_lifters
+    runtime.lift_mashable
   end
 
-  def run_digg
-    p "loading digg headlines"
-    get_from2( @select_blog )
+  def run_reddit 
+    p "loading reddit headlines"
+    runtime = Lifters.new
+    runtime.greet_lifters
+    runtime.lift_reddit
+  end
+
+  def run_noko
+    p "loading nokogiri headlines"
+    runtime = Lifters.new
+    runtime.greet_lifters
+    runtime.lift_noko
   end
 
   def nokogiri_mode(url)
@@ -38,23 +49,23 @@ class Welcome
   end
 
 def chooseBlog
-  if @select_blog == "1"
-  puts "hi"
-  run_mashable
-
-  elsif @select_blog == "2"
-  run_digg
-
-  elsif @select_blog == "nx"
+  puts "runing choser"
+puts "you put in .. #{@select_blog.class}"
+  case @select_blog
+  when "1"
+    puts "running mashable"
+    run_mashable
+  when "2"
+    run_reddit 
+  when 'nx'
     p "nx exparamental mode entering..."
-    #nokogiri_mode("http://autoweek.com")
-
-  elsif @select_blog == "n"
+    run_noko
+  when 'n'
     p "noko scraping mode"
     doc = Nokogiri::HTML(open('http://autoweek.com'))
     doc.css('.excerpt').each do | excerpt |
       puts excerpt.content.strip
-    end
+  end
   end
 end
 end
