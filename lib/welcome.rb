@@ -6,8 +6,8 @@ class Welcome
   end
 
   def greeting
-    p "welcome what blog would u like to ready? /n"
-    p "press 1 for mashable, 2 for digg headers or n for nokogiri scraper nx for nokogiri exparamantal"
+    p "welcome what blog would u like to read?"
+    p "press 1 for mashable, 2 for reddit headers or nokogiri scraper nx for nokogiri exparamantal"
     @select_blog = gets.strip
   end
 
@@ -50,8 +50,6 @@ class Welcome
   end
 
 def chooseBlog
-  puts "runing choser"
-puts "you put in .. #{@select_blog.class}"
   case @select_blog
   when "1"
     puts "running mashable"
@@ -67,6 +65,9 @@ puts "you put in .. #{@select_blog.class}"
     doc.css('.excerpt').each do | excerpt |
       puts excerpt.content.strip
   end
+  else
+    puts "you put in .. #{@select_blog}.. thats not a option"
+    puts "please read the directions OK?"
   end
 end
 end

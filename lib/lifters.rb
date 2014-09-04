@@ -73,8 +73,8 @@ def lift_noko
 end
 
 def lift_noko_followed
-    header = Nokogiri::HTML(open(@each_link).read).css(".story")
-    p header.to_s.gsub( %r{</?[^>]+?>}, '' )
+    header = Nokogiri::HTML(open(@each_link).read).css("h1")
+    puts header.to_s
     image = Nokogiri::HTML(open(@each_link)).css(".article-wrap img")
     puts "here is the image"
     image = image.to_s
@@ -85,6 +85,9 @@ def lift_noko_followed
     #xpath is the way to go... erase the shit above.... ^^^^^!!!!
 
     doc = Nokogiri::HTML(open(@each_link))
+    doc.xpath('//h1').each do |header|
+        puts header.text
+    end
     doc.xpath('//img').each do |img|
       puts "Header: #{img.xpath('preceding::h2[1]').text}"
         puts "  Image: #{img['src']}"
